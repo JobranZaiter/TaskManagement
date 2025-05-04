@@ -24,8 +24,5 @@ namespace TaskManagement.Models
         public List<ProjectAssignee> ProjectAssignees { get; set; } = new List<ProjectAssignee>();
         public List<AppTask> Tasks { get; set; } = new List<AppTask>();
 
-
-
-
     }
 }

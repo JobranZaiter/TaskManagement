@@ -48,7 +48,10 @@ namespace TaskManagement.Repository.Implementation
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
         }
-
+        public async Task<bool> UserExistsAsync(int id)
+        {
+            return await _context.Users.AnyAsync(u => u.Id == id);
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

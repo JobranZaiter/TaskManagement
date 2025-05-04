@@ -21,7 +21,10 @@ namespace TaskManagement.Models
 
         [RegularExpression("^(Owner|Admin|Manager|Employee)$", ErrorMessage = "Role must be Admin, User, or Manager.")]
         public string Role { get; set; }
+        // App tasks they created
         public List<AppTask> AppTasks { get; set; }
+
+        // Subtasks they are assigned to
         public List<SubTask> SubTasks { get; set; }
         public List<TaskPermission> Permissions { get; set; } = new List<TaskPermission>();
         public List<Attachement> Attachements { get; set; } = new();

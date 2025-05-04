@@ -10,5 +10,6 @@ namespace TaskManagement.Repository.Interface
         Task AddAsync(User user);
         Task<bool> EmailExistsAsync(string email);
         Task SaveChangesAsync();
+        Task<bool> UserExistsAsync(int id);
     }
 }
