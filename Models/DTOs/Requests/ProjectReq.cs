@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TaskManagement.Models.DTOs
+namespace TaskManagement.Models.DTOs.Requests
 {
     public class ProjectReq
     {

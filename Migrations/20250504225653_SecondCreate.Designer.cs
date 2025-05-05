@@ -12,8 +12,8 @@ using TaskManagement.Data;
 namespace TaskManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250429142920_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250504225653_SecondCreate")]
+    partial class SecondCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -233,8 +233,16 @@ namespace TaskManagement.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("ProjectAssigneeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int");

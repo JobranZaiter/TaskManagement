@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TaskManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class SecondCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -191,6 +191,10 @@ namespace TaskManagement.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TaskId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ProjectAssigneeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

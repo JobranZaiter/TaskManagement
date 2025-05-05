@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Services.Interface;
 using TaskManagement.Models.DTOs;
+using TaskManagement.Models.DTOs.Requests;
 
 namespace TaskManagement.Controllers
 {

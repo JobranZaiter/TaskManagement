@@ -230,8 +230,16 @@ namespace TaskManagement.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("ProjectAssigneeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int");

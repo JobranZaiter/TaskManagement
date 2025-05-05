@@ -11,6 +11,12 @@ namespace TaskManagement.Models
         [Required]
         public int TaskId { get; set; }
 
+        [Required]
+        public string Description { get; set; }
+
+        [Required]
+        [RegularExpression("^(Awaiting|Pending|Finished)$", ErrorMessage = "Role must be Admin, User, or Manager.")]
+        public string Status { get; set; } = "Awaiting";
         [ForeignKey("TaskId")]
         public AppTask Task { get; set; }
 

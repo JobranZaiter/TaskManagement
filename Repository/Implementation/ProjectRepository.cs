@@ -20,6 +20,7 @@ namespace TaskManagement.Repository.Implementation
             return await _context.Projects
                 .Include(p => p.Owner)
                 .Include(p => p.ProjectAssignees)
+                .ThenInclude(pa => pa.User)
                 .Include(p => p.Tasks)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }

@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
@@ -47,7 +47,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "TaskManagement API", Version = "v1" });
 
-    // 🔒 Add JWT Authentication to Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -55,7 +54,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "Enter JWT token"
+        Description = "Enter 'Bearer' followed by your JWT token."
     });
 
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
@@ -73,6 +72,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 
 builder.Services.AddHttpContextAccessor();
 

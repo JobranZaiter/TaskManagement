@@ -13,7 +13,7 @@ namespace TaskManagement.Controllers
         private readonly IProjectService projectService;
         private readonly ITaskService taskService;
 
-        public DashboardController(IProjectService _projectService, TaskService _taskService)
+        public DashboardController(IProjectService _projectService, ITaskService _taskService)
         {
             projectService = _projectService;
             taskService = _taskService;
