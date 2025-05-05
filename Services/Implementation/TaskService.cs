@@ -99,7 +99,7 @@ namespace TaskManagement.Services.Implementation
                 return (ErrorType.NotFound, "Project not found");
 
             var assignee = await projectAssigneeRepository.GetByProjectAndUserIdAsync(projectId, userId.Value);
-            if (assignee.Role != "Admin" || assignee.Role != "Manager" || project.UserId != userId )
+            if (assignee.Role != "Admin" && assignee.Role != "Manager" && project.UserId != userId )
                 return (ErrorType.Unauthorized, "You do not have permission to add tasks to this project");
 
             var task = new AppTask
