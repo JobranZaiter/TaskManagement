@@ -30,7 +30,7 @@ namespace TaskManagement.Controllers
             var(status, message, project) = await projectService.GetProjectDetails(projectId);
             return StatusCode((int)status, new { message, project });
         }
-
+    
         
     }
 }
