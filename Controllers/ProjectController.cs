@@ -30,7 +30,37 @@ namespace TaskManagement.Controllers
             var(status, message, project) = await projectService.GetProjectDetails(projectId);
             return StatusCode((int)status, new { message, project });
         }
+        [HttpDelete("{projectId}")]
+        public async Task<IActionResult> DeleteProject(int projectId)
+        {
+            var (status, message) = await projectService.DeleteProject(projectId);
+            return StatusCode((int)status, message);
+        }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllProjects()
+        {
+            var (status, message, projects) = await projectService.GetAllProjects();
+            return StatusCode((int)status, new { message, projects });
+        }
+        [HttpGet("assignments")]
+        public async Task<IActionResult> GetProjectAssignments()
+        {
+            var (status, message, projects) = await projectService.GetProjectAssignments();
+            return StatusCode((int)status, new { message, projects });
+        }
 
-        
+        [HttpPost("{projectId}/assignee")]
+        public async Task<IActionResult> AddAssigneeByEmail(int projectId, [FromBody] string assigneeEmail)
+        {
+            var (status, message) = await projectService.AddAssigneeByEmailAsync(projectId, assigneeEmail, "Member");
+            return StatusCode((int)status, message);
+        }
+
+        [HttpPost("{projectId}/assignee/{role}")]
+        public async Task<IActionResult> AddAssigneeByEmail(int projectId, string assigneeEmail, string role)
+        {
+            var (status, message) = await projectService.AddAssigneeByEmailAsync(projectId, assigneeEmail, role);
+            return StatusCode((int)status, message);
+        }
     }
 }

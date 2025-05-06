@@ -12,6 +12,18 @@ using TaskManagement.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:5012")  // The URL of your Blazor WebAssembly app
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
+
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
@@ -91,6 +103,7 @@ builder.Services.AddScoped<IAppTaskRepository, AppTaskRepository>();
 builder.Services.AddScoped<ITaskPermissionRepository, TaskPermissionRepository>();
 builder.Services.AddScoped<ISubTaskRepository, SubTaskRepository>();
 
+builder.Services.AddScoped<IProjectAssigneeRepository, ProjectAssigneeRepository>();
 
 var app = builder.Build();
 
@@ -101,6 +114,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
