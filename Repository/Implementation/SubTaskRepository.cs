@@ -22,6 +22,14 @@ namespace TaskManagement.Repository.Implementation
                 .Where(s => s.AssignedTo.UserId == userId)
                 .ToListAsync();
         }
+        public async Task<List<SubTask>> GetByTaskIdAsync(int taskId)
+        {
+            return await _context.SubTasks
+                .Include(s => s.Task)
+                .Include(s => s.AssignedTo)
+                .Where(s => s.TaskId == taskId)
+                .ToListAsync();
+        }
 
         public async Task<SubTask?> GetByIdAsync(int id)
         {

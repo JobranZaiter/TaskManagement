@@ -117,6 +117,32 @@ namespace TaskManagement.Services.Implementation
 
             return (ErrorType.Ok, "Task added successfully");
         }
+        public async Task<(ErrorType HttpError, string Message, List<SubTaskResp>)> GetSubTasks(int taskId)
+        {
+            var id = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (id == null)
+                return (ErrorType.Unauthorized, "Please login first.", null);
+            int userId = int.Parse(id);
+            if (!await userRepository.UserExistsAsync(userId))
+                return (ErrorType.Unauthorized, "User does not exist", null);
+
+            var task = await taskRepository.GetByIdAsync(taskId);
+            if (task == null)
+                return (ErrorType.NotFound, "Task not found", null);
+
+            var subTasks = await subTaskRepository.GetByTaskIdAsync(taskId);
+            if (subTasks == null || subTasks.Count == 0)
+                return (ErrorType.NotFound, "No sub-tasks found", null);
+
+            List<SubTaskResp> subTaskResponses = subTasks.Select(s => new SubTaskResp
+            {
+                Id = s.Id,
+                Description = s.Description,
+                Status = s.Status,
+                AssigneeId = s.ProjectAssigneeId
+            }).ToList();
+            return (ErrorType.Ok, "Sub-tasks found", subTaskResponses);
+        }
 
     }
 }
