@@ -30,38 +30,35 @@ namespace TaskManagement.Controllers
             var (status, message, project) = await projectService.GetProjectDetails(projectId);
             return StatusCode((int)status, new { message, project });
         }
+
         [HttpDelete("{projectId}")]
         public async Task<IActionResult> DeleteProject(int projectId)
         {
             var (status, message) = await projectService.DeleteProject(projectId);
             return StatusCode((int)status, message);
         }
+
         [HttpGet("all")]
         public async Task<IActionResult> GetAllProjects()
         {
             var (status, message, projects) = await projectService.GetAllProjects();
             return StatusCode((int)status, new { message, projects });
         }
+
         [HttpGet("assignments")]
         public async Task<IActionResult> GetProjectAssignments()
         {
             var (status, message, projects) = await projectService.GetProjectAssignments();
             return StatusCode((int)status, new { message, projects });
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> c7e36ea0b1d9da653a031e74ce1a64a4bdc01a9f
         [HttpPost("{projectId}/assignee")]
         public async Task<IActionResult> AddAssigneeByEmail(int projectId, [FromBody] string assigneeEmail)
         {
             var (status, message) = await projectService.AddAssigneeByEmailAsync(projectId, assigneeEmail, "Member");
             return StatusCode((int)status, message);
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> c7e36ea0b1d9da653a031e74ce1a64a4bdc01a9f
         [HttpPost("{projectId}/assignee/{role}")]
         public async Task<IActionResult> AddAssigneeByEmail(int projectId, string assigneeEmail, string role)
         {
