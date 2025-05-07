@@ -5,7 +5,7 @@ using TaskManagement.Models.DTOs.Requests;
 
 namespace TaskManagement.Controllers
 {
-    [Route("api/auth/")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
