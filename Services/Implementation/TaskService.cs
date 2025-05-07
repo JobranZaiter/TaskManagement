@@ -260,9 +260,8 @@ namespace TaskManagement.Services.Implementation
             if (subTask == null)
                 return (ErrorType.NotFound, "Sub-task not found in this task");
 
-            var hasPermission = await permissionManager.UserHasPermissionAsync(userId.Value, taskId, PermissionType.Write);
-            if (!hasPermission)
-                return (ErrorType.Unauthorized, "You do not have write permission to this task");
+            if (subTask.AssignedTo.Id != userId)
+                return (ErrorType.Unauthorized, "You do not have permission to update this sub-task");
             subTask.Status = status;
             await subTaskRepository.SaveChangesAsync();
             return (ErrorType.Ok, "Sub-task updated successfully");

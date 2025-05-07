@@ -23,7 +23,12 @@ namespace TaskManagement.Controllers
             var (code, message) = await taskService.DeleteTask(taskId);
             return StatusCode((int)code, new { message });
         }
-
+        [HttpPost("project/{projectId}/task")]
+        public async Task<IActionResult> AddTask(int projectId, TaskCreateReq request)
+        {
+            var (code, message) = await taskService.AddTaskToProjectAsync(projectId, request);
+            return StatusCode((int)code, new { message });
+        }
 
         [HttpGet("project/{projectId}/{taskId}")]
         public async Task<IActionResult> GetAllSubTasks(int taskId)

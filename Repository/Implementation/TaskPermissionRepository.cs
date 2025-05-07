@@ -22,6 +22,16 @@ namespace TaskManagement.Repository.Implementation
                 .Where(p => p.ProjectAssignee.UserId == userId && p.TaskId == taskId)
                 .ToListAsync();
         }
+        public async Task<List<TaskPermission>> GetAllByProjectIdAsync(int projectId)
+        {
+            return await _context.TaskPermissions
+                .Include(tp => tp.Task)
+                .Include(tp => tp.ProjectAssignee)
+                .ThenInclude(pa => pa.User)
+                .Where(tp => tp.Task.ProjectId == projectId)
+                .ToListAsync();
+        }
+
         public async Task<List<TaskPermission>> GetByUserIdAsync(int userId)
         {
             return await _context.TaskPermissions

@@ -14,5 +14,6 @@ namespace TaskManagement.Services.Interface
         Task<(ErrorType HttpCode, string Message)> AddSubTaskToTaskAsync(int taskId, SubTaskReq req);
         Task<(ErrorType HttpCode, string Message)> DeleteSubTaskFromTaskAsync(int taskId, int subTaskId);
         Task<(ErrorType HttpCode, string Message)> UpdateSubTask(int taskId, int subTaskId, string status);
+        Task<(ErrorType HttpCode, string Message)> AddTaskToProjectAsync(int projectId, TaskCreateReq req);
     }
 }

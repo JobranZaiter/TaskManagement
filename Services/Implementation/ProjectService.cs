@@ -14,13 +14,16 @@ namespace TaskManagement.Services.Implementation
         private readonly IProjectRepository projectRepository;
         private readonly IUserRepository userRepository;
         private readonly IPermissionManager permissionManager;
+        private readonly IProjectAssigneeRepository assigneeRepository;
 
         public ProjectService(
             IHttpContextAccessor _contextAccessor,
             IProjectRepository _projectRepository,
             IUserRepository _userRepository,
-            IPermissionManager _permissionManager)
+            IPermissionManager _permissionManager,
+            IProjectAssigneeRepository _assigneeRepository)
         {
+            assigneeRepository = _assigneeRepository;
             contextAccessor = _contextAccessor;
             projectRepository = _projectRepository;
             userRepository = _userRepository;
@@ -142,7 +145,10 @@ namespace TaskManagement.Services.Implementation
                 AssignedUsers = new List<ProjectAssigneeInfo>()
             };
 
-            if (project.UserId != userId.Value)
+            ProjectAssignee projectAssignee = await assigneeRepository.GetByProjectAndUserIdAsync(projectId, userId.Value);
+            if (project.UserId != userId.Value || projectAssignee == null)
+                return (ErrorType.Unauthorized, "You are not authorized to view this project", null);
+            if (project.UserId != userId.Value && projectAssignee.Role != "Admin")
             {
                 foreach (var task in project.Tasks)
                 {

@@ -83,6 +83,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IPermissionManager, PermissionManager>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
