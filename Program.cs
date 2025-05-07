@@ -90,6 +90,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IAppTaskRepository, AppTaskRepository>();
 builder.Services.AddScoped<ITaskPermissionRepository, TaskPermissionRepository>();
 builder.Services.AddScoped<ISubTaskRepository, SubTaskRepository>();
+builder.Services.AddScoped<IProjectAssigneeRepository, ProjectAssigneeRepository>();
 
 
 var app = builder.Build();
