@@ -17,12 +17,21 @@ namespace TaskManagement.Controllers
             this.taskService = _taskService;
         }
 
+        [HttpDelete("project/{projectId}/task/{taskId}")]
+        public async Task<IActionResult> DeleteTask(int taskId)
+        {
+            var (code, message) = await taskService.DeleteTask(taskId);
+            return StatusCode((int)code, new { message });
+        }
+
+
         [HttpGet("project/{projectId}/{taskId}")]
         public async Task<IActionResult> GetAllSubTasks(int taskId)
         {
             var (status, message, tasks) = await taskService.GetSubTasks(taskId);
             return StatusCode((int)status, new { message, tasks });
         }
+
 
         [HttpPost("project/{projectId}/{taskId}")]
         public async Task<IActionResult> AddSubtask(int taskId, SubTaskReq request)
@@ -37,5 +46,14 @@ namespace TaskManagement.Controllers
             var (status, message) = await taskService.DeleteSubTaskFromTaskAsync(taskId, subtaskId);
             return StatusCode((int)status, new { message });
         }
+
+        [HttpPut("project/{projectId}/{taskId}/{subtaskId}")]
+        public async Task<IActionResult> UpdateSubTaskStatus(int taskId, int subtaskId, [FromQuery] string status)
+        {
+            var (code, message) = await taskService.UpdateSubTask(taskId, subtaskId, status);
+            return StatusCode((int)code, new { message });
+        }
+
+
     }
 }
